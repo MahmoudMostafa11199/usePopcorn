@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useKey } from "./useKey";
 
 export default function NavBar({ movies, query, onSetQuery, onCloseMovie }) {
