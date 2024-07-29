@@ -7,49 +7,53 @@ export const useMovie = (query) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const controller = new AbortController();
+  useEffect(
+    function () {
+      const controller = new AbortController();
 
-    const fetchMovies = async function () {
-      try {
-        setIsLoading(true);
-        setError("");
-        const res = await fetch(
-          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-          { signal: controller.signal }
-        );
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          setError("");
 
-        if (!res.ok)
-          throw new Error("something went wrong with fetching movies");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
+          );
 
-        const data = await res.json();
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
 
-        if (data.Response === "False") throw new Error("Movie not found!");
+          const data = await res.json();
 
-        setMovies(data.Search);
-        setError("");
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          setError(err.message);
+          if (data.Response === "False") throw new Error("Movie not found!");
+
+          setMovies(data.Search);
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
+        } finally {
+          setIsLoading(false);
         }
-      } finally {
-        setIsLoading(false);
       }
-    };
 
-    if (query.length < 3) {
-      setMovies([]);
-      setError("");
-      return;
-    }
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
 
-    // handleCloseMovie();
-    fetchMovies();
+      // handleCloseMovie();
+      fetchMovies();
 
-    return () => {
-      controller.abort();
-    };
-  }, [query]);
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  );
 
   return { movies, isLoading, error };
 };
