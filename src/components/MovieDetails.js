@@ -24,6 +24,7 @@ function MovieDetails({
   const {
     Poster: poster,
     Title: title,
+    Year: year,
     Actors: actors,
     Director: director,
     Genre: genre,
@@ -32,6 +33,7 @@ function MovieDetails({
     Runtime: runtime,
     imdbRating,
     imdbID: imdbId,
+    Country: country,
   } = movie;
 
   const addWatched = () => {
@@ -56,6 +58,7 @@ function MovieDetails({
         `https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
       );
       const data = await res.json();
+
       setIsLoading(false);
       setMovie(data);
     };
@@ -85,9 +88,10 @@ function MovieDetails({
             <div className="details-overview">
               <h2>{title}</h2>
               <p>
-                {released} &bull; {runtime}
+                {released === "N/A" ? year : released} &bull; {runtime}
               </p>
               <p>{genre}</p>
+              <p>{country}</p>
               <p>
                 <span>⭐</span>
                 {imdbRating} IMDb rating
