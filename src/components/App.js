@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { useMovie } from "./components/useMovie";
-import { useLocalStorageState } from "./components/useLocalStorageState";
-import NavBar from "./components/NavBar";
-import Main from "./components/Main";
-import Box from "./components/Box";
-import MovieList from "./components/MovieList";
-import WatchedMovieList from "./components/WatchedMovieList";
-import WatchedSummary from "./components/WatchedSummary";
-import { Loader, ErrorMessage } from "./components/Helping";
-import MovieDetails from "./components/MovieDetails";
+import { useMovie } from "./useMovie";
+import { useLocalStorageState } from "./useLocalStorageState";
+import NavBar from "./NavBar";
+import Main from "./Main";
+import Box from "./Box";
+import MovieList from "./MovieList";
+import WatchedMovieList from "./WatchedMovieList";
+import WatchedSummary from "./WatchedSummary";
+import { Loader, ErrorMessage } from "./Helping";
+import MovieDetails from "./MovieDetails";
 
 const KEY = "5efa3a53";
 
